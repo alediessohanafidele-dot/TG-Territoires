@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accès aux services publics · Communes du Togo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#profil"><span class="logo">TG</span></a>
+    <nav id="menu">
+      <a href="#profil">Profil 2022</a>
+      <a href="#evolution">Évolution 2010-2022</a>
+      <a href="#electricite">Électricité</a>
+      <a href="#etat-civil">État civil</a>
+      <a href="#priorites">Priorités &amp; recommandations</a>
+      <a href="#methodologie">Méthodologie</a>
+    </nav>
+  </div>
+  <div class="filters"><span class="flabel">Régions</span><div id="chips"></div></div>
+</header>
+
+<main>
+<section class="page" id="profil">
+  <h1>Profil démographique 2022</h1>
+  <p class="hint">Population et structure par sexe des régions, préfectures et communes. Choisissez les régions ci-dessus ; survolez la carte et les graphiques pour lire les valeurs.</p>
+  <div class="kpis" id="k-profil"></div>
+  <div class="grid g-32">
+    <div class="card"><h3>Population 2022 par unité territoriale</h3><div id="m-profil" class="map"></div></div>
+    <div class="card"><h3>Par région</h3><div id="b-profil-region" class="chart"></div></div>
+  </div>
+  <div class="card"><h3>Région › préfecture › commune <small>(cliquez pour explorer)</small></h3><div id="t-profil" class="chart tall"></div></div>
+  <div class="grid g-2">
+    <div class="card"><h3>Communes les plus peuplées</h3>
+      <label class="ctl">Nombre de communes : <b id="v-ntop">15</b><input type="range" id="n-top" min="5" max="30" value="15"></label>
+      <div id="b-profil-top" class="chart"></div></div>
+    <div class="card"><h3>Hommes pour 100 femmes selon la taille</h3><div id="s-profil" class="chart"></div></div>
+  </div>
+</section>
+
+<section class="page" id="evolution">
+  <h1>Évolution de la population 2010-2022</h1>
+  <p class="hint">Le découpage a changé depuis 2010 (Agoè-Nyivé issu du Golfe, Oti-Sud issu d'Oti…). La comparaison se fait donc sur des <b>unités harmonisées 2010</b> regroupant les communes actuelles.</p>
+  <div class="kpis" id="k-evo"></div>
+  <div class="grid g-32">
+    <div class="card"><h3>Carte de la croissance</h3>
+      <div class="radio"><label><input type="radio" name="evo" value="tcam" checked> Taux de croissance annuel moyen (%)</label>
+      <label><input type="radio" name="evo" value="croiss"> Croissance totale (%)</label></div>
+      <div id="m-evo" class="map"></div></div>
+    <div class="card"><h3>15 unités à plus forte croissance</h3><div id="b-evo-top" class="chart"></div></div>
+  </div>
+  <div class="card"><h3>2010 et 2022 – les 20 plus grandes unités</h3><div id="b-evo-cmp" class="chart"></div></div>
+</section>
+
+<section class="page" id="electricite">
+  <h1>Électricité et agences CEET / TdE</h1>
+  <p class="hint">Accès à l'électricité et présence des agences. Le tableau en bas liste les communes sans aucune agence.</p>
+  <div class="kpis" id="k-elec"></div>
+  <div class="grid g-2">
+    <div class="card"><h3>Agences pour 100 000 habitants</h3><div id="m-elec" class="map"></div></div>
+    <div class="card"><h3>Taux d'accès à l'électricité par région</h3><div id="b-elec-reg" class="chart short"></div>
+      <h3>Nombre d'agences par région</h3><div id="b-elec-ag" class="chart short"></div></div>
+  </div>
+  <div class="card"><h3>Communes sans agence CEET ni TdE</h3><div class="tablewrap" id="tb-elec"></div></div>
+</section>
+
+<section class="page" id="etat-civil">
+  <h1>État civil, cartes d'identité et passeports</h1>
+  <p class="hint">Enregistrement des naissances au niveau national, et production de cartes nationales d'identité et de passeports.</p>
+  <div class="kpis" id="k-civil"></div>
+  <div class="grid g-2">
+    <div class="card"><h3>Naissances enregistrées (%)</h3><div id="l-naiss" class="chart"></div></div>
+    <div class="card"><h3>CNI et passeports par sexe (2022)</h3><div id="b-ident" class="chart"></div></div>
+  </div>
+  <div class="card"><h3>Taux estimé de détention de CNI par commune</h3><div id="s-cni" class="chart"></div>
+    <p class="note">Les CNI et passeports ne sont publiés qu'au niveau national : les valeurs communales sont des répartitions estimées.</p></div>
+</section>
+
+<section class="page" id="priorites">
+  <h1>Priorités &amp; recommandations</h1>
+  <p class="hint">Réglez l'importance de chaque critère avec les curseurs : l'indice, la carte et le classement se mettent à jour instantanément.</p>
+  <div class="card sliders">
+    <label>Électricité <b id="v-e">35</b><input type="range" id="w-e" min="0" max="100" value="35"></label>
+    <label>Agences (habitants par agence) <b id="v-a">30</b><input type="range" id="w-a" min="0" max="100" value="30"></label>
+    <label>Croissance démographique <b id="v-c">20</b><input type="range" id="w-c" min="0" max="100" value="20"></label>
+    <label>Identité (CNI) <b id="v-i">15</b><input type="range" id="w-i" min="0" max="100" value="15"></label>
+  </div>
+  <div class="grid g-32">
+    <div class="card"><h3>Indice moyen de besoin par unité territoriale</h3><div id="m-prio" class="map"></div></div>
+    <div class="card"><h3>Communes les plus prioritaires</h3>
+      <label class="ctl">Nombre de communes : <b id="v-nprio">15</b><input type="range" id="n-prio" min="5" max="30" value="15"></label>
+      <div id="b-prio" class="chart"></div></div>
+  </div>
+  <div class="card"><h3>Classement détaillé</h3>
+    <div class="toolbar"><input type="search" id="q-prio" placeholder="Rechercher une commune ou une préfecture…"><button id="dl-prio" class="btn">Télécharger (CSV)</button></div>
+    <div class="tablewrap" id="tb-prio"></div></div>
+  <div class="card"><h3>Recommandations</h3><ul id="reco"></ul></div>
+</section>
+
+<section class="page" id="methodologie">
+  <h1>Méthodologie</h1>
+  <div class="card prose">
+    <h3>Données utilisées</h3>
+    <p>Communes, préfectures, agences CEET et TdE, cartes d'identité et passeports, naissances enregistrées, et géométries administratives (ADM2).</p>
+    <h3>Découpage administratif</h3>
+    <p>Les géométries correspondent au découpage d'environ 2010 (37 polygones), pas aux 117 communes actuelles. Chaque commune est rattachée à une <b>unité harmonisée 2010</b> : Grand Lomé (Lomé-commune + Golfe + Agoè-Nyivé), Sotouboua + Mô, Kpendjal + Kpendjal-Ouest, Oti + Oti-Sud. Les cartes sont à cette échelle ; les analyses par commune passent par les graphiques et tableaux.</p>
+    <h3>Indicateurs</h3>
+    <p><b>TCAM</b> = (population 2022 / population 2010)<sup>1/12</sup> − 1.</p>
+    <p><b>Indice de besoin</b> : moyenne pondérée de quatre critères ramenés à 0-100 : déficit d'électricité, habitants par agence (population / (1 + agences CEET et TdE)), TCAM, déficit de CNI. Les pondérations sont réglables. <b>Priorité 1</b> = 10 premières communes, <b>Priorité 2</b> = les 20 suivantes.</p>
+    <h3>Limites à garder en tête</h3>
+    <ul>
+      <li>La population 2010 par commune est <b>estimée</b> : la croissance est identique pour toutes les communes d'une même unité.</li>
+      <li>Le taux d'accès à l'électricité est un niveau <b>régional</b>, légèrement modulé par commune.</li>
+      <li>CNI et passeports : données <b>nationales</b> d'une seule année (2022). Les valeurs communales sont des répartitions estimées, sans évolution dans le temps.</li>
+      <li>Les naissances enregistrées ne sont disponibles qu'au niveau national (2006, 2010, 2017, 2021).</li>
+      <li>Les agences sont comptées par commune, sans coordonnées GPS ni distances.</li>
+    </ul>
+  </div>
+</section>
+</main>
+<script src="{{ url_for('static', filename='js/plotly.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
